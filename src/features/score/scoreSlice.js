@@ -1,0 +1,4 @@
+// playerCards =[]
+// compCards = []
+
+//addPlayerScore, addComputerScore
