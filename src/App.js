@@ -12,6 +12,7 @@ const App = () => {
 
   const startGame = () => {
     dispatch(clearMatched())
+    dispatch(resetCards())
     dispatch(setBoard())
   }
 
@@ -24,7 +25,7 @@ const App = () => {
       <Score/>
       <Board/>
       <button onClick={startGame}>Start Game</button>
-      <button onClick={tryAgain}>Try Again</button>
+      <button onClick={tryAgain}>Try New Pair</button>
     </div>
   );
 }

@@ -44,11 +44,12 @@ const wordPairs = [
 
 const randomWords = () => {
   let words = []
-  const reps = wordPairs.length
+  let newWordPairs = [...wordPairs]
+  const reps = newWordPairs.length
   for (let i=0; i<reps; i++) {
-    const wordIndex = Math.floor(Math.random()*wordPairs.length);
-    words.push(wordPairs[wordIndex])
-    wordPairs.splice(wordIndex, 1)
+    const wordIndex = Math.floor(Math.random()*newWordPairs.length);
+    words.push(newWordPairs[wordIndex])
+    newWordPairs.splice(wordIndex, 1)
   }
 
   return words;

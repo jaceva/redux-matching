@@ -3,7 +3,14 @@
 
 //addPlayerScore, addComputerScore
 
-const initialState = []
+const initialState = [
+  'Provider', 'Provider', 
+  'selector', 'selector', 
+  'useSelector()', 'useSelector()', 
+  'useDispatch()', 'useDispatch()',
+  'Pure Function', 'Pure Function',
+  'react-redux', 'react-redux',
+]
 
 export const matchedReducer = (state = initialState, action) => {
   switch (action.type) {
