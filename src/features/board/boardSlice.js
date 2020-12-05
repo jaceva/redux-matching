@@ -3,21 +3,19 @@
 // }
 // visible
 
-// actions: setOrder, check match
-
 const initialState = {
-  0: {word: 'Provider', visible: true}, 
-  1: {word: 'Provider', visible: true}, 
-  2: {word: 'selector', visible: true}, 
-  3: {word: 'selector', visible: true}, 
-  4: {word: 'useSelector()', visible: true}, 
-  5: {word: 'useSelector()', visible: true}, 
-  6: {word: 'useDispatch()', visible: true}, 
-  7: {word: 'useDispatch()', visible: true}, 
-  8: {word: 'Pure Function', visible: true}, 
-  9: {word: 'Pure Function', visible: true}, 
-  10: {word: 'react-redux', visible: true}, 
-  11: {word: 'react-redux', visible: true}, 
+  0: 'Provider', 
+  1: 'Provider', 
+  2: 'selector', 
+  3: 'selector', 
+  4: 'useSelector()', 
+  5: 'useSelector()', 
+  6: 'useDispatch()', 
+  7: 'useDispatch()', 
+  8: 'Pure Function', 
+  9: 'Pure Function', 
+  10: 'react-redux', 
+  11: 'react-redux', 
 };
 
 export const boardReducer = (state = initialState, action) => {
@@ -25,28 +23,11 @@ export const boardReducer = (state = initialState, action) => {
     case 'board/setBoard':
       let newState = {}
       action.payload.forEach((element, index) => 
-        newState[index] = {word: element, visible: false}
+        newState[index] = element
       );
+
       console.log(newState);
       return newState;
-    case 'board/flipCard':
-      const id = action.payload;
-      console.log(id);
-      const card = {...state[id]}
-      
-      const flipState = {...state}
-      flipState[id].visible = true
-    //   const keys = Object.keys(flipState)
-    //   let flipCount = 0
-    //   keys.forEach((element) => {
-    //     if (flipState[element].visible) {
-    //       flipCount += 1;
-    //     }
-    //   })
-    //   if (flipCount == 2) {
-    //     console.log("Pair")
-    //   } 
-      return flipState;
     default:
       return state;
   }
@@ -72,13 +53,6 @@ const randomWords = () => {
 
   return words;
 } 
-
-export const flipCard = (id) => {
-  return {
-    type: 'board/flipCard',
-    payload: id
-  }
-}
 
 export const setBoard = () => {
   const words = randomWords()

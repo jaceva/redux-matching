@@ -1,31 +1,41 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { flipCard, selectBoard } from '../../boardSlice.js';
+import { flipCard, selectVisibleCardIDs, selectVisibleCardWords } from './cardSlice.js';
+import { selectMatched } from '../../../score/scoreSlice';
 
-export const Card = ({id}) => {
-  
-  const board = useSelector(selectBoard);
-  
-  const card = board[id];
+export const Card = ({id, word}) => {
+  const visibleCardIDs = useSelector(selectVisibleCardIDs);
+  const matched = useSelector(selectMatched);
   const dispatch = useDispatch();
 
-  const makeVisible = (id) => {
-    dispatch(flipCard(id));
-  }
-
-  const word = card.word;
-  const visible = card.visible;
-
-  let cardText = "<<<>>>"
-  if (visible) {
-    cardText = word;
+  const makeVisible = (word) => {
+    dispatch(flipCard(word));
   }
 
   const style = {
     borderStyle: "solid",
     display: "inline-grid",
-    width: "100px"
+    width: "100px",
+    color: "grey"
   }
 
-  return <button style={style} onClick={() => makeVisible(id)}>{cardText}</button>; 
+  let cardText = "<<<>>>"
+  let click = () => makeVisible({id:id, word:word})
+  if (visibleCardIDs.includes(id) || 
+    matched.includes(word)) {
+    cardText = word;
+    click = () => {};
+  }
+
+  if (visibleCardIDs.length == 2) {
+    click = () => {};
+  }
+
+  if (matched.includes(word)) {
+    style['color'] = "red";
+  }
+
+  return <button 
+    style={style} 
+    onClick={click}>{cardText}</button>; 
 }

@@ -3,13 +3,20 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Score } from './features/score/Score.js';
 import { Board } from './features/board/Board.js';
-import { setBoard } from './features/board/boardSlice.js';
+import { resetCards } from './features/board/cardRow/card/cardSlice.js';
+import { setBoard } from './features/board/boardSlice';
+import { clearMatched } from './features/score/scoreSlice';
 
 const App = () => {
   const dispatch = useDispatch();
 
   const startGame = () => {
+    dispatch(clearMatched())
     dispatch(setBoard())
+  }
+
+  const tryAgain = () => {
+    dispatch(resetCards())
   }
 
   return (
@@ -17,6 +24,7 @@ const App = () => {
       <Score/>
       <Board/>
       <button onClick={startGame}>Start Game</button>
+      <button onClick={tryAgain}>Try Again</button>
     </div>
   );
 }
