@@ -6,9 +6,9 @@ export const CardRow = ({row, cards}) => {
   for (let i=0; i<4; i++) {
     const id = row*4+i;
     content.push(<Card 
-      key={id} 
-      id={id}
-      word={cards[id]}/>)
+      key={cards[i].id} 
+      id={cards[i].id}
+      contents={cards[i].contents}/>)
   }
   return <div>{content}</div>;
 }

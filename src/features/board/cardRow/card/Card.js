@@ -1,40 +1,44 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { flipCard, selectVisibleCardIDs, selectVisibleCardWords } from './cardSlice.js';
-import { selectMatched } from '../../../score/scoreSlice';
+import { flipCard , selectVisible, selectMatched } from '../../boardSlice';
 
-export const Card = ({id, word}) => {
-  const visibleCardIDs = useSelector(selectVisibleCardIDs);
+
+export const Card = ({id, contents}) => {
+  const visibleIDs = useSelector(selectVisible);
   const matched = useSelector(selectMatched);
   const dispatch = useDispatch();
 
-  const makeVisible = (word) => {
-    dispatch(flipCard(word));
+  // flip card action
+  const flip = (id) => {
+    dispatch(flipCard(id));
   }
 
+  // init card info
   const style = {
     borderStyle: "solid",
     display: "inline-grid",
     width: "100px",
     color: "grey"
   }
-
   let cardText = "<<<>>>"
-  let click = () => makeVisible({id:id, word:word})
-  if (visibleCardIDs.includes(id) || 
-    matched.includes(word)) {
-    cardText = word;
+  let click = () => flip(id);
+
+  // show text and disable click if visible or matched
+  if (visibleIDs.includes(id) || matched.includes(id)) {
+    cardText = contents;
     click = () => {};
   }
-
-  if (visibleCardIDs.length == 2) {
-    click = () => {};
-  }
-
-  if (matched.includes(word)) {
+  
+  // red text if matched
+  if (matched.includes(id)) {
     style['color'] = "red";
   }
 
+  // don't allow flip while two unmatched cards are visible
+  if (visibleIDs.length == 2) {
+    click = () => {};
+  }
+  
   return <button 
     style={style} 
     onClick={click}>{cardText}</button>; 

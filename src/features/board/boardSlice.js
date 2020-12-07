@@ -1,33 +1,54 @@
-// cardOrder {
-//  1:
-// }
-// visible
-
-const initialState = {
-  0: 'Provider', 
-  1: 'Provider', 
-  2: 'selector', 
-  3: 'selector', 
-  4: 'useSelector()', 
-  5: 'useSelector()', 
-  6: 'useDispatch()', 
-  7: 'useDispatch()', 
-  8: 'Pure Function', 
-  9: 'Pure Function', 
-  10: 'react-redux', 
-  11: 'react-redux', 
-};
+const initialState = [
+  {id: 0, contents: 'Provider', visible: true, matched: true}, 
+  {id: 1, contents: 'Provider', visible: true, matched: true}, 
+  {id: 2, contents: 'selector', visible: true, matched: true}, 
+  {id: 3, contents: 'selector', visible: true, matched: true}, 
+  {id: 4, contents: 'useSelector()', visible: true, matched: true}, 
+  {id: 5, contents: 'useSelector()', visible: true, matched: true}, 
+  {id: 6, contents: 'useDispatch()', visible: true, matched: true}, 
+  {id: 7, contents: 'useDispatch()', visible: true, matched: true}, 
+  {id: 8, contents: 'Pure Function', visible: true, matched: true}, 
+  {id: 9, contents: 'Pure Function', visible: true, matched: true}, 
+  {id: 10, contents: 'react-redux', visible: true, matched: true}, 
+  {id: 11, contents: 'react-redux', visible: true, matched: true}, 
+];
 
 export const boardReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'board/setBoard':
-      let newState = {}
+      let setState = [];
       action.payload.forEach((element, index) => 
-        newState[index] = element
+        setState.push({id: index, 
+                      contents: element, 
+                      visible: false, 
+                      matched: false})
       );
 
-      console.log(newState);
-      return newState;
+      console.log(setState);
+      return setState;
+    case 'board/flipCard':
+      let flipState = [...state];
+      const cardID = action.payload;
+      flipState[cardID] = {...state[cardID], visible:true}
+      
+      const [index1, index2] = flipState
+        .filter(card => card.visible)
+        .map(card => card.id);
+
+      // check for 2 flipped cards
+      if (index2 !== undefined){
+        const card1 = flipState[index1];
+        const card2 = flipState[index2];
+        // do the cards match
+        if (card1.contents === card2.contents) {
+          flipState[index1] = {...card1, visible: false, matched: true}
+          flipState[index2] = {...card2, visible: false, matched: true}
+        }
+      } 
+
+      return flipState;
+    case 'board/resetCards':
+      return state.map(card => ({...card, visible: false}));
     default:
       return state;
   }
@@ -63,4 +84,26 @@ export const setBoard = () => {
   }
 }
 
-export const selectBoard = state => state.board;
+export const flipCard = (id) => {
+  return {
+    type: 'board/flipCard',
+    payload: id
+  }
+}
+
+export const resetCards = (indices) => {
+  return {
+    type: 'board/resetCards'
+  }
+}
+
+export const selectBoard = state => state.board
+  .map(card => ({id: card.id, contents: card.contents}));
+
+export const selectVisible = state => state.board
+  .filter(card => card.visible)
+  .map(card => card.id);
+
+export const selectMatched = state => state.board
+.filter(card => card.matched)
+.map(card => card.id);
