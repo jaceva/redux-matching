@@ -1,13 +1,13 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { CardRow } from './cardRow/CardRow.js';
-import { matched, selectBoard } from './boardSlice.js';
+import { selectBoard } from './boardSlice.js';
 
 export const Board = () => {
   const currentBoard = useSelector(selectBoard);
-  const dispatch = useDispatch();
-  const numberOfCards = Object.keys(currentBoard).length
-  const rows = Math.floor(numberOfCards/4)
+  const numberOfCards = currentBoard.length
+  const columns = 4;
+  const rows = Math.floor(numberOfCards/columns)
 
   const getRowCards = (row) => {
     const rowCards = [];

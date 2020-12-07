@@ -5,7 +5,7 @@ import { flipCard , selectVisible, selectMatched } from '../../boardSlice';
 
 export const Card = ({id, contents}) => {
   const visibleIDs = useSelector(selectVisible);
-  const matched = useSelector(selectMatched);
+  const matchedIDs = useSelector(selectMatched);
   const dispatch = useDispatch();
 
   // flip card action
@@ -24,13 +24,13 @@ export const Card = ({id, contents}) => {
   let click = () => flip(id);
 
   // show text and disable click if visible or matched
-  if (visibleIDs.includes(id) || matched.includes(id)) {
+  if (visibleIDs.includes(id) || matchedIDs.includes(id)) {
     cardText = contents;
     click = () => {};
   }
   
   // red text if matched
-  if (matched.includes(id)) {
+  if (matchedIDs.includes(id)) {
     style['color'] = "red";
   }
 
