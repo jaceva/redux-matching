@@ -4,11 +4,11 @@ import { selectMatched } from '../board/boardSlice';
 
 
 export const Score = () => {
-  const numMatched = useSelector(selectMatched);
+  const cardsMatched = useSelector(selectMatched);
 
   return (
     <div>
-      Matched: {numMatched.length}
+      Matched: {cardsMatched.length}
     </div>
   )
 } 
