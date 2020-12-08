@@ -8,11 +8,11 @@ import { setBoard, resetCards } from './features/board/boardSlice';
 const App = () => {
   const dispatch = useDispatch();
 
-  const startGame = () => {
+  const startGameHandler = () => {
     dispatch(setBoard())
   }
 
-  const tryAgain = () => {
+  const tryAgainHandler = () => {
     dispatch(resetCards())
   }
 
@@ -20,8 +20,8 @@ const App = () => {
     <div className="App">
       <Score/>
       <Board/>
-      <button onClick={startGame}>New Game</button>
-      <button onClick={tryAgain}>Try New Pair</button>
+      <button onClick={startGameHandler}>New Game</button>
+      <button onClick={tryAgainHandler}>Try New Pair</button>
     </div>
   );
 }

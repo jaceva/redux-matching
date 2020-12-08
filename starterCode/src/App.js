@@ -1,0 +1,30 @@
+import './App.css';
+import React from 'react';
+import { Score } from './features/score/Score.js';
+import { Board } from './features/board/Board.js';
+// Add import statements below
+
+const App = () => {
+  // Add dispatch variable below
+
+  const startGame = () => {
+    // Add action dispatch below
+
+  }
+
+  const tryAgain = () => {
+    // Add action dispatch below
+    
+  }
+
+  return (
+    <div className="App">
+      <Score/>
+      <Board/>
+      <button onClick={startGame}>New Game</button>
+      <button onClick={tryAgain}>Try New Pair</button>
+    </div>
+  );
+}
+
+export default App;
