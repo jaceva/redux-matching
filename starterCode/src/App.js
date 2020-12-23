@@ -7,12 +7,12 @@ import { Board } from './features/board/Board.js';
 const App = () => {
   // Add dispatch variable below
 
-  const startGame = () => {
+  const startGameHandler = () => {
     // Add action dispatch below
 
   }
 
-  const tryAgain = () => {
+  const tryAgainHandler = () => {
     // Add action dispatch below
     
   }
