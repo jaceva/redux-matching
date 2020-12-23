@@ -21,8 +21,8 @@ const App = () => {
     <div className="App">
       <Score/>
       <Board/>
-      <button onClick={startGame}>New Game</button>
-      <button onClick={tryAgain}>Try New Pair</button>
+      <button onClick={startGameHandler}>New Game</button>
+      <button onClick={tryAgainHandler}>Try New Pair</button>
     </div>
   );
 }
