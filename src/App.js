@@ -1,19 +1,23 @@
 import './App.css';
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { Score } from './features/score/Score.js';
 import { Board } from './features/board/Board.js';
-import { setBoard, resetCards } from './features/board/boardSlice';
+// Add import statements below
+import { useDispatch } from 'react-redux';
+import { resetCards, setBoard } from './features/board/boardSlice.js';
 
 const App = () => {
+  // Add dispatch variable below
   const dispatch = useDispatch();
 
   const startGameHandler = () => {
+    // Add action dispatch below
     dispatch(setBoard())
   }
 
   const tryAgainHandler = () => {
-    dispatch(resetCards())
+    // Add action dispatch below
+    dispatch(resetCards());
   }
 
   return (
