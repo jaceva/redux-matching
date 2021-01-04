@@ -1,19 +1,19 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { flipCard , selectVisible, selectMatched } from '../../boardSlice';
-
+// Add import statements below
+import { useDispatch, useSelector } from 'react-redux';
+import { flipCard, selectVisibleIDs, selectMatchedIDs } from '../../boardSlice.js'
 
 export const Card = ({id, contents}) => {
-  const visibleIDs = useSelector(selectVisible);
-  const matchedIDs = useSelector(selectMatched);
+  // Add selected data and dispatch variables below
+  const visibleIDs = useSelector(selectVisibleIDs);
+  const matchedIDs = useSelector(selectMatchedIDs);
   const dispatch = useDispatch();
-
   // flip card action
-  const flip = (id) => {
+  const flipHandler = (id) => {
+    // Add action dispatch below
     dispatch(flipCard(id));
   }
 
-  // init card info
   const style = {
     borderStyle: "solid",
     display: "inline-grid",
@@ -21,21 +21,24 @@ export const Card = ({id, contents}) => {
     color: "grey"
   }
   let cardText = "<<<>>>"
-  let click = () => flip(id);
+  let click = () => flipHandler(id);
 
-  // show text and disable click if visible or matched
+  // 1st if statement
+  // implement card id array membership check
   if (visibleIDs.includes(id) || matchedIDs.includes(id)) {
     cardText = contents;
     click = () => {};
   }
   
-  // red text if matched
+  // 2nd if statement
+  // implement card id array membership check
   if (matchedIDs.includes(id)) {
     style['color'] = "red";
   }
 
-  // don't allow flip while two unmatched cards are visible
-  if (visibleIDs.length == 2) {
+  // 3rd if statement
+  // implement number of flipped cards check
+  if (visibleIDs.length === 2) {
     click = () => {};
   }
   

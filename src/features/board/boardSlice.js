@@ -23,8 +23,6 @@ export const boardReducer = (state = initialState, action) => {
                       visible: false, 
                       matched: false})
       );
-
-      console.log(setState);
       return setState;
     case 'board/flipCard':
       let flipState = [...state];
@@ -34,12 +32,9 @@ export const boardReducer = (state = initialState, action) => {
       const [index1, index2] = flipState
         .filter(card => card.visible)
         .map(card => card.id);
-
-      // check for 2 flipped cards
       if (index2 !== undefined){
         const card1 = flipState[index1];
         const card2 = flipState[index2];
-        // do the cards match
         if (card1.contents === card2.contents) {
           flipState[index1] = {...card1, visible: false, matched: true}
           flipState[index2] = {...card2, visible: false, matched: true}
@@ -76,6 +71,7 @@ const randomWords = () => {
   return words;
 } 
 
+// action creators
 export const setBoard = () => {
   const words = randomWords()
   return {
@@ -97,13 +93,9 @@ export const resetCards = (indices) => {
   }
 }
 
-export const selectBoard = state => state.board
-  .map(card => ({id: card.id, contents: card.contents}));
+// Add selector export statments below
+export const selectBoard = state => state.board.map(card => ({id: card.id, contents: card.contents}));
 
-export const selectVisible = state => state.board
-  .filter(card => card.visible)
-  .map(card => card.id);
+export const selectVisibleIDs = state => state.board.filter(card => card.visible).map(card => card.id);
 
-export const selectMatched = state => state.board
-.filter(card => card.matched)
-.map(card => card.id);
+export const selectMatchedIDs = state => state.board.filter(card => card.matched).map(card => card.id);
