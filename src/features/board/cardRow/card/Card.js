@@ -6,27 +6,27 @@ import {
   selectVisibleIDs,
   selectMatchedIDs,
 } from '../../boardSlice.js';
-import logo from '../../../../logo.png';
+// import logo from '../../../../logo.png';
 
 export const Card = ({ id, contents }) => {
   // Add selected data and dispatch variables below
   const visibleIDs = useSelector(selectVisibleIDs);
   const matchedIDs = useSelector(selectMatchedIDs);
   const dispatch = useDispatch();
-  const [cardState, setCardState] = useState('resting');
+  //const [cardState, setCardState] = useState('resting');
   // flip card action
   const flipHandler = (id) => {
     // Add action dispatch below
     dispatch(flipCard(id));
   };
 
+  let cardLogo = "https://static-assets.codecademy.com/Courses/Learn-Redux/matching-game/codecademy_logo.png";
+  
+  let cardStyle = 'resting'
+  let click = () => flipHandler(id);
   let cardText = (
-    <img src={logo} className="logo-placeholder" alt="Card option" />
+    <img src={cardLogo} className="logo-placeholder" alt="Card option" />
   );
-  let click = () => {
-    flipHandler(id);
-    setCardState('selected');
-  };
 
   // 1st if statement
   // implement card id array membership check
@@ -35,26 +35,22 @@ export const Card = ({ id, contents }) => {
     click = () => {};
   }
 
+  // 2nd if statement
+  // implement card id array membership check
+  if (matchedIDs.includes(id)) {
+    cardText = contents;
+    click = () => {};
+    cardStyle = 'matched';
+  }
+
   // 3rd if statement
   // implement number of flipped cards check
   if (visibleIDs.length === 2) {
     click = () => {};
   }
 
-  useEffect(() => {
-    if (visibleIDs.length === 0) {
-      setCardState('resting');
-    }
-    if (matchedIDs.includes(id)) {
-      setCardState('matched');
-    }
-    if (visibleIDs.length === 2 && !matchedIDs.includes(id)) {
-      setCardState('no-match');
-    }
-  }, [visibleIDs, matchedIDs, id]);
-
   return (
-    <button onClick={click} className={`card ${cardState}`}>
+    <button onClick={click} className={`card ${cardStyle}`}>
       {cardText}
     </button>
   );
